@@ -13,7 +13,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	ChangeWindowMode(TRUE);		// ウィンドウモードで起動
 
-	
+	DxLib_Init();
+
 	SetDrawScreen(DX_SCREEN_BACK);	// 描画先画面を裏にする
 
 	SetFontSize(20);		// 文字サイズを設定
@@ -28,12 +29,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		ClearDrawScreen();		// 画面の初期化
 
-		sceneMng.Update();      //
-		sceneMng.Draw();        //
-		if (sceneMng.ChangeScene() == nullptr)    //
+		sceneMng.Update();      //シーンの更新処理
+		sceneMng.Draw();        //シーンの描画処理
+		if (sceneMng.ChangeScene() == nullptr)    //シーンの変更処理
 		{
-			DxLib_End();
-			return 0;
+			DxLib_End();        //
+			return 0;           //
 		}
 		ScreenFlip();			// 裏画面の内容を表画面に反映
 	}
