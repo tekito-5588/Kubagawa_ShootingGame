@@ -1,8 +1,12 @@
 #pragma once
 #include "AbstractScene.h"
+#include"Player.h"
 class GameMainScene :public AbstractScene
 {
 public:
+	Player* player;
+public:
+	GameMainScene();
 	//デストラクタ
 	virtual ~GameMainScene() {};
 
