@@ -1,5 +1,6 @@
 #pragma once
 #include "CharaBase.h"
+#include "StraightBullets.h"
 
 class Player :
     public CharaBase

@@ -4,9 +4,10 @@ class BulletsBase : public SphereCollider
 {
 private:
 	int damage;
-
+	
 protected:
 	T_Location speed;
+
 public:
 	BulletsBase(T_Location location, float radius, int damage, T_Location speed);
 
