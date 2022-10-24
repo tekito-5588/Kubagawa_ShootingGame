@@ -1,9 +1,12 @@
 #include"DxLib.h"
 #include "SceneManager.h"
 #include"AbstractScene.h"
+#include"KeyManager.h"
 
 void SceneManager::Update()
 {
+	KeyManager::Update();
+
 	//現在シーンのアップデートを実行
 	mScene->Update();
 }
