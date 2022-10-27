@@ -3,7 +3,8 @@
 #include "BulletsBase.h"
 #include"KeyManager.h"
 
-Player::Player(T_Location location) :CharaBase(location, 10.f, T_Location{ 2,2 }), score(0),life(10)
+Player::Player(T_Location location) :CharaBase(location, 10.f, T_Location{ 2,2 })
+        , score(0),life(10)
 {
 	bullets = new BulletsBase * [30];
 	for (int i = 0; i < 30; i++)
@@ -15,7 +16,22 @@ Player::Player(T_Location location) :CharaBase(location, 10.f, T_Location{ 2,2 }
 void Player::Update()
 {
 	T_Location newLocation = GetLocation();
-	newLocation.x += 1;
+	if (KeyManager::OnKeyPreased(KEY_INPUT_W))
+	{newLocation.y -= speed.y;
+    }
+	if (KeyManager::OnKeyPreased(KEY_INPUT_A))
+	{
+		newLocation.x -= speed.x;
+	}
+	if (KeyManager::OnKeyPreased(KEY_INPUT_S))
+	{
+		newLocation.y += speed.y;
+	}
+	if (KeyManager::OnKeyPreased(KEY_INPUT_D))
+	{
+		newLocation.x += speed.x;
+	}
+
 	SetLocation(newLocation);
 
 	int bulletCount;
@@ -26,9 +42,19 @@ void Player::Update()
 			break;
 		}
 		bullets[bulletCount]->Update();
+
+		//‰æ–ÊŠO‚És‚Á‚½‚ç’e‚ðÁ‚·
+		if (bullets[bulletCount]->isScreenOut())
+		{
+			delete bullets[bulletCount];
+			bullets[bulletCount] = nullptr;
+
+			//”z—ñ‚ð‘O‚É‹l‚ß‚é
+
+		}
 	}
 
-	if (KeyManager::OnMouseClicked(KEY_INPUT_LEFT))
+	if (KeyManager::OnMouseClicked(MOUSE_INPUT_LEFT))
 	{
 			if (bulletCount < 30 && bullets[bulletCount] == nullptr)
 			{

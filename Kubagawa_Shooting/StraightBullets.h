@@ -6,7 +6,8 @@ public:
 	StraightBullets(T_Location location);
 
 public:
-	void Update() override;
-	void Draw() override;
+	virtual void Update() override;
+	virtual void Draw() override;
+	virtual bool isScreenOut() override;
 };
 

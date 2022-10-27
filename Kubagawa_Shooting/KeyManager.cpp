@@ -25,14 +25,14 @@ void KeyManager::Update()
 
 bool KeyManager::OnKeyClicked(int Key)
 {
-	bool cet = ((NowKey[Key] == 1) && (oldKey[Key] != 1));
+	bool cet = ((NowKey[Key] == 1) && (~oldKey[Key] != 1));
 	return cet;
 }
 
 bool KeyManager::OnKeyReleased(int Key)
 {
 	//ƒ{ƒ^ƒ“‚ğ—£‚µ‚½uŠÔ
-	bool ret = ((NowKey[Key] != 1) && (oldKey[Key] == 1)); //”½“]‚Å‚àˆ—‚Å‚«‚é
+	bool ret = ((~NowKey[Key] != 1) && (oldKey[Key] == 1)); //”½“]‚Å‚àˆ—‚Å‚«‚é
 	return ret;
 }
 
@@ -46,8 +46,8 @@ bool KeyManager::OnKeyPreased(int Key)
 
 bool KeyManager::OnMouseClicked(int Key)
 {
-	bool cet = ((NowMouse & Key) && (~oldMouse & Key));
-	return cet;
+	bool ret = ((NowMouse & Key) && (~oldMouse & Key));
+	return ret;
 }
 
 bool KeyManager::OnMouseyReleased(int Key)
