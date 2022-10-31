@@ -60,6 +60,6 @@ bool KeyManager::OnMouseyReleased(int Key)
 bool KeyManager::OnMousePreased(int Key)
 {
 	//ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚Ä‚¢‚éŠÔ
-	bool pet = ((NowMouse & Key));
-	return pet;
+	bool ret = ((NowMouse & Key));
+	return ret;
 }

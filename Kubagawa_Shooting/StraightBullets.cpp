@@ -21,6 +21,6 @@ void StraightBullets::Draw()
 
 bool StraightBullets::isScreenOut()
 {
-	bool ret = (GetLocation().y + GetRadius() <= 0);
+	int ret = ((GetLocation().y + GetRadius()) <= 0);
 	return ret;
 }

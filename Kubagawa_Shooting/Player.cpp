@@ -50,7 +50,13 @@ void Player::Update()
 			bullets[bulletCount] = nullptr;
 
 			//”z—ñ‚ð‘O‚É‹l‚ß‚é
-
+			for (bulletCount = 0; bulletCount < 30; bulletCount++)
+			{
+				if (bullets[bulletCount] != nullptr)
+				{
+					break;
+				}
+			}
 		}
 	}
 
