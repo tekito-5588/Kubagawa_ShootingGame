@@ -26,6 +26,38 @@ void GameMainScene::Update()
 		}
 		enemy[enemyCount]->Update();
 	}
+
+	BulletsBase** bullet = player->GetBullets();
+	for (enemyCount = 0; enemyCount < 10; enemyCount++)
+	{
+		if (enemy[enemyCount] == nullptr)
+		{
+			break;
+		}
+		for (int bulletCount = 0; bulletCount < 30; bulletCount++)
+		{
+			if (bullet[bulletCount] == nullptr)
+			{
+				break;
+			}
+			if (enemy[enemyCount]->HitSphere(bullet[bulletCount]))
+			{
+				//エネミーにプレイヤーがヒットしている
+
+				//エネミーにダメージを与えます
+				enemy[enemyCount]->Hit(bullet[bulletCount]->GetDamage());
+				//弾を削除します
+				player->DeleteBullet(bulletCount);
+				bulletCount--;
+				//エネミーのHPが0だったら、エネミーを削除します
+				if (enemy[enemyCount]->HpCheck())
+				{
+					//エネミーの削除
+					
+				}
+			}
+		}
+	}
 }
 
 //描画に関することを実装する

@@ -13,7 +13,8 @@ public:
 public:
 	virtual void Update()= 0;   //ƒˆ‰¼‘zŠÖ”
 	virtual void Draw() = 0;
-	virtual void Hit() = 0;
+	virtual void Hit(int damage) = 0;
 	BulletsBase** GetBullets();
+	void DeleteBullet(int bulletNum);
+	void DeleteEnemy(int enemyNum);
 };
-
