@@ -21,5 +21,7 @@ public:
 
 	//ƒV[ƒ“‚Ì•ÏXˆ—
 	virtual AbstractScene* ChangeScene() override;
+
+	void DeleteEnemy(int enemyNum);
 };
 

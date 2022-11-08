@@ -18,6 +18,7 @@ void GameMainScene::Update()
 	player->Update();
 	
 	int enemyCount;
+	
 	for (enemyCount = 0; enemyCount < 10; enemyCount++)
 	{
 		if (enemy[enemyCount] == nullptr)
@@ -43,17 +44,34 @@ void GameMainScene::Update()
 			if (enemy[enemyCount]->HitSphere(bullet[bulletCount]))
 			{
 				//エネミーにプレイヤーがヒットしている
-
 				//エネミーにダメージを与えます
 				enemy[enemyCount]->Hit(bullet[bulletCount]->GetDamage());
+
 				//弾を削除します
 				player->DeleteBullet(bulletCount);
 				bulletCount--;
+
 				//エネミーのHPが0だったら、エネミーを削除します
 				if (enemy[enemyCount]->HpCheck())
 				{
+					//スコアの加算
+					player->AddScore(enemy[enemyCount]->GetPoint());
+
 					//エネミーの削除
-					
+					delete enemy[enemyCount];
+					enemy[enemyCount] = nullptr;
+
+					for (int i = enemyCount; i < 10; i++)
+					{
+						if (enemy[i] == nullptr)
+						{
+							break;
+						}
+						enemy[i - 1] = enemy[i];
+						enemy[i] = nullptr;
+					}
+					enemyCount--;
+					break;
 				}
 			}
 		}
@@ -79,4 +97,21 @@ void GameMainScene::Draw() const
 AbstractScene* GameMainScene::ChangeScene()
 {
 	return this;
+}
+
+void GameMainScene::DeleteEnemy(int enemyNum)
+{
+	delete enemy[enemyNum];
+	enemy[enemyNum] = nullptr;
+
+	for (int i = enemyNum; i < (10 - 1); i++)
+	{
+		if (enemy[i + 1] == nullptr)
+		{
+			break;
+		}
+		enemy[i] = enemy[i + 1];
+		enemy[i + 1] = nullptr;
+	}
+	enemyNum--;
 }

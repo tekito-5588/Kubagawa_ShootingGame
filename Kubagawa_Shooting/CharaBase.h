@@ -1,6 +1,7 @@
 #pragma once
 #include "SphereCollider.h"
 #include"BulletsBase.h"
+
 class CharaBase : public SphereCollider
 {
 protected:
@@ -16,5 +17,4 @@ public:
 	virtual void Hit(int damage) = 0;
 	BulletsBase** GetBullets();
 	void DeleteBullet(int bulletNum);
-	void DeleteEnemy(int enemyNum);
 };
