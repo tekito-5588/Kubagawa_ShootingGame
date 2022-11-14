@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "BulletsBase.h"
 #include"KeyManager.h"
+#include "recovery.h"
 
 Player::Player(T_Location location) :CharaBase(location, 10.f, T_Location{ 2,2 })
         , score(0),life(10)
@@ -55,12 +56,18 @@ void Player::Update()
 	{
 			if (bulletCount < 30 && bullets[bulletCount] == nullptr)
 			{
-				bullets[bulletCount] = new StraightBullets(GetLocation());
+				bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{0,-2});
 			}
 	}
 }
 void Player::Draw()
 {
+#define _DEBUG_MODE_
+	
+#ifdef _DEBUG_MODE_
+	DrawFormatString(10, 10, GetColor(255, 255, 255), "life = %d", life);
+#endif
+
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
 
 	for (int bulletCount = 0; bulletCount < 30; bulletCount++)
@@ -74,13 +81,29 @@ void Player::Draw()
 }
 void Player::Hit(int damage)
 {
-
+	
 }
+void Player::Hit(ItemBase* item)
+{
+	switch (item->GetType())
+	{
+	case E_ITEM_TYPE::Heal:
+	{
+		Recovery* recovery = dynamic_cast<Recovery*>(item);
+		life += recovery->GetVolume();
+		break;
+	}
+	default:
+		break;
+	}
+}
+
 bool Player::LifeCheck()
 {
 	bool ret = (life <= 0);
 	return ret;
 }
+
 int Player::GetScore() 
 {
 	return score;

@@ -1,8 +1,8 @@
 #include"DxLib.h"
 #include "StraightBullets.h"
 
-StraightBullets::StraightBullets(T_Location location)
-	:BulletsBase(location, 5.f, 1, T_Location{ 0,2 })
+StraightBullets::StraightBullets(T_Location location, T_Location speed)
+	:BulletsBase(location, 5.f, 1, speed)
 {
 
 }
@@ -10,8 +10,9 @@ StraightBullets::StraightBullets(T_Location location)
 void StraightBullets::Update()
 {
 	T_Location newLocation = GetLocation();
-	newLocation.y -= speed.y;
+	newLocation.y += speed.y;
 	SetLocation(newLocation);
+
 }
 
 void StraightBullets::Draw()
@@ -21,6 +22,6 @@ void StraightBullets::Draw()
 
 bool StraightBullets::isScreenOut()
 {
-	int ret = ((GetLocation().y + GetRadius()) <= 0);
+	int ret = ((GetLocation().y + GetRadius()) <= 0 || GetLocation().y + GetRadius() >= 480);
 	return ret;
 }

@@ -2,12 +2,15 @@
 #include "AbstractScene.h"
 #include"Player.h"
 #include"Enemy.h"
+#include"ItemBase.h"
+#include"Recovery.h"
 
 class GameMainScene :public AbstractScene
 {
 public:
 	Player* player;
 	Enemy** enemy;
+	ItemBase** items;
 public:
 	GameMainScene();
 	//デストラクタ
