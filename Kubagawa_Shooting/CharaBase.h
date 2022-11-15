@@ -8,6 +8,7 @@ protected:
 	BulletsBase** bullets;
 	T_Location speed;
 	int* image;
+	int waitShotTimer;
 
 public:
 	CharaBase(T_Location location, float radius, T_Location speed);

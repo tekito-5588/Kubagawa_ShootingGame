@@ -10,8 +10,10 @@ Player::Player(T_Location location) :CharaBase(location, 10.f, T_Location{ 2,2 }
 	bullets = new BulletsBase * [30];
 	for (int i = 0; i < 30; i++)
 	{
+		
 		bullets[i] = nullptr;
 	}
+	waitShotTimer = 0;
 }
 
 void Player::Update()
@@ -56,8 +58,13 @@ void Player::Update()
 	{
 			if (bulletCount < 30 && bullets[bulletCount] == nullptr)
 			{
-				bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{0,-2});
+				if (waitShotTimer == 10)
+				{
+					bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,-2 });
+					waitShotTimer = 0;
+				}
 			}
+			waitShotTimer++;
 	}
 }
 void Player::Draw()

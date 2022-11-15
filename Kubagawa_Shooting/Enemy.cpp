@@ -11,6 +11,7 @@ Enemy::Enemy(T_Location location):
 	{
 		bullets[i] = nullptr;
 	}
+	waitShotTimer = 0;
 }
 
 void Enemy::Update()
@@ -40,8 +41,13 @@ void Enemy::Update()
 
 	if (bulletCount < 30 && bullets[bulletCount] == nullptr)
 	{
-		bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,2 });
+		if (waitShotTimer == 10)
+		{
+			bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,2 });
+			waitShotTimer = 0;
+		}
 	}
+	waitShotTimer++;
 }
 void Enemy::Draw()
 {
