@@ -22,8 +22,10 @@ GameMainScene::GameMainScene()
 void GameMainScene::Update()
 {
 	player->Update();
-	
+
 	int enemyCount;
+
+	int playerCount;
 	
 	for (enemyCount = 0; enemyCount < 10; enemyCount++)
 	{
@@ -103,8 +105,6 @@ void GameMainScene::Update()
 		}
 	}
 
-	
-
 	for (int itemCount = 0; itemCount < 10; itemCount++)
 	{
 		if (items[itemCount] == nullptr)
@@ -135,6 +135,39 @@ void GameMainScene::Update()
 		}
 	}
 
+	//敵の弾を取ってくる
+	//for(弾をループで参照){
+	//if(敵の弾と　プレイヤーの当たり判定){
+	//プレイヤーにダメージを与える
+	//}
+	//}
+
+	for (enemyCount = 0; enemyCount < 10; enemyCount++)
+	{
+		if (enemy[enemyCount] == nullptr)
+		{
+			break;
+		}
+		BulletsBase** bullet = enemy[0]->GetBullets();
+		for (int bulletCount = 0; bulletCount < 30; bulletCount++)
+		{
+			if (bullet[bulletCount] == nullptr)
+			{
+				break;
+			}
+			if (player->HitSphere(bullet[bulletCount]))
+			{
+				//エネミーにプレイヤーがヒットしている
+				//エネミーにダメージを与えます
+				player->Hit(bullet[bulletCount]->GetDamage());
+
+				//弾を削除します
+				enemy[0]->DeleteBullet(bulletCount);
+				bulletCount--;
+
+			}
+		}
+	}
 }
 
 //描画に関することを実装する

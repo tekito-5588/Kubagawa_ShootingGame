@@ -22,6 +22,11 @@ void StraightBullets::Draw()
 
 bool StraightBullets::isScreenOut()
 {
-	int ret = ((GetLocation().y + GetRadius()) <= 0 || GetLocation().y + GetRadius() >= 480);
+	bool ret = ((GetLocation().y + GetRadius()) <= 0 /*|| GetLocation().y + GetRadius() >= 720*/);
+	if (ret)
+	{
+		return ret;
+	}
+	ret = (720 <= (GetLocation().y - GetRadius()));
 	return ret;
 }

@@ -20,7 +20,7 @@ void Enemy::Update()
 	newLocation.y += speed.y;
 	SetLocation(newLocation);
 
-	SetLocation(newLocation);
+	/*SetLocation(newLocation);*/
 
 	int bulletCount;
 	for (bulletCount = 0; bulletCount < 30; bulletCount++)

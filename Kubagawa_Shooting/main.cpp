@@ -1,12 +1,16 @@
 #include "DxLib.h"
 #include"SceneManager.h"
 #include"GameMainScene.h"
+#define WINDOW_HEIGHT 720
+#define WINDOW_WHITH 1280
 
 /***********************************************
  * プログラムの開始
  ***********************************************/
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow) {
+	SetWindowSize(WINDOW_WHITH, WINDOW_HEIGHT);
+	SetGraphMode(WINDOW_WHITH, WINDOW_HEIGHT, 16);
 
 	// タイトルを test に変更
 	SetMainWindowText("シューティングゲーム");
@@ -31,6 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		sceneMng.Update();      //シーンの更新処理
 		sceneMng.Draw();        //シーンの描画処理
+
 		if (sceneMng.ChangeScene() == nullptr)    //シーンの変更処理
 		{
 			DxLib_End();        //
