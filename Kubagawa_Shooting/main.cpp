@@ -1,8 +1,6 @@
 #include "DxLib.h"
 #include"SceneManager.h"
 #include"GameMainScene.h"
-#define WINDOW_HEIGHT 720
-#define WINDOW_WHITH 1280
 
 /***********************************************
  * プログラムの開始
