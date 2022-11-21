@@ -1,27 +1,26 @@
 #include"DxLib.h"
-#include "StraightBullets.h"
+#include "SpiralBullets.h"
 #include"GameMainScene.h"
 
-StraightBullets::StraightBullets(T_Location location, T_Location speed)
+SpiralBullets::SpiralBullets(T_Location location, T_Location speed)
 	:BulletsBase(location, 5.f, 1, speed)
 {
 
 }
 
-void StraightBullets::Update()
+void SpiralBullets::Update()
 {
 	T_Location newLocation = GetLocation();
 	newLocation.y += speed.y;
 	SetLocation(newLocation);
-
 }
 
-void StraightBullets::Draw()
+void SpiralBullets::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 255, 0));
+	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 170, 220));
 }
 
-bool StraightBullets::isScreenOut()
+bool SpiralBullets::isScreenOut()
 {
 	bool ret = ((GetLocation().y + GetRadius()) <= 0);
 	if (ret)

@@ -1,6 +1,7 @@
 #pragma once
 #include "CharaBase.h"
 #include"StraightBullets.h"
+#include"SpiralBullets.h"
 class Enemy :
     public CharaBase
 {

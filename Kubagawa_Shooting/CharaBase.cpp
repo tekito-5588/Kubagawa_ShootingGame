@@ -36,5 +36,4 @@ void CharaBase::DeleteBullet(int bulletNum)
 			bullets[i - 1] = bullets[i];
 			bullets[i] = nullptr;
 		}*/
-		bulletNum--;
 }

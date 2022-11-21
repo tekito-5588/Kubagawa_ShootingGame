@@ -39,12 +39,13 @@ void Enemy::Update()
 		}
 	}
 
-	if (bulletCount < 30 && bullets[bulletCount] == nullptr)
+	if (waitShotTimer == 10)
 	{
-		if (waitShotTimer == 10)
+		waitShotTimer = 0;
+		if (bulletCount < 30 && bullets[bulletCount] == nullptr)
 		{
 			bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,2 });
-			waitShotTimer = 0;
+			
 		}
 	}
 	waitShotTimer++;

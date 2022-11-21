@@ -10,7 +10,6 @@ Player::Player(T_Location location) :CharaBase(location, 10.f, T_Location{ 2,2 }
 	bullets = new BulletsBase * [30];
 	for (int i = 0; i < 30; i++)
 	{
-		
 		bullets[i] = nullptr;
 	}
 	waitShotTimer = 0;
@@ -56,15 +55,16 @@ void Player::Update()
 
 	if (KeyManager::OnMousePreased(MOUSE_INPUT_LEFT))
 	{
+		if(waitShotTimer == 10)
+		{
+			waitShotTimer = 0;
 			if (bulletCount < 30 && bullets[bulletCount] == nullptr)
 			{
-				if (waitShotTimer == 10)
-				{
-					bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,-2 });
-					waitShotTimer = 0;
-				}
+				
+				bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,-2 });
 			}
-			waitShotTimer++;
+		}
+		waitShotTimer++;
 	}
 }
 void Player::Draw()
@@ -73,6 +73,7 @@ void Player::Draw()
 	
 #ifdef _DEBUG_MODE_
 	DrawFormatString(10, 10, GetColor(255, 255, 255), "life = %d", life);
+	DrawFormatString(30, 30, GetColor(255, 255, 255), "score = %d", score);
 #endif
 
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
@@ -88,7 +89,14 @@ void Player::Draw()
 }
 void Player::Hit(int damage)
 {
-	
+	if (0 <= damage)
+	{
+		life -= damage;
+		if (life <= 0)
+		{
+			life = 0;
+		}
+	}
 }
 void Player::Hit(ItemBase* item)
 {
