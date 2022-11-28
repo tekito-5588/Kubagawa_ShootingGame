@@ -28,6 +28,6 @@ bool StraightBullets::isScreenOut()
 	{
 		return ret;
 	}
-	ret = (WINDOW_HEIGHT <= (GetLocation().y - GetRadius()));
+	ret = (HEIGHT <= (GetLocation().y - GetRadius()));
 	return ret;
 }

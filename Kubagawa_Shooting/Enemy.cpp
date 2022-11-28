@@ -1,17 +1,19 @@
 #include"DxLib.h"
 #include "Enemy.h"
 #include"BulletsBase.h"
+#include<math.h>
 
 Enemy::Enemy(T_Location location):
 	CharaBase(location, 20.f, T_Location{ 0,0.5 })
     ,hp(10),point(10)
 {
-	bullets = new BulletsBase * [30];
-	for (int i = 0; i < 30; i++)
+	bullets = new BulletsBase * [40];
+	for (int i = 0; i < 40; i++)
 	{
 		bullets[i] = nullptr;
 	}
 	waitShotTimer = 0;
+	angle = 0;
 }
 
 void Enemy::Update()
@@ -19,7 +21,6 @@ void Enemy::Update()
 	T_Location newLocation = GetLocation();
 	newLocation.y += speed.y;
 	SetLocation(newLocation);
-
 	/*SetLocation(newLocation);*/
 
 	int bulletCount;
@@ -44,8 +45,8 @@ void Enemy::Update()
 		waitShotTimer = 0;
 		if (bulletCount < 30 && bullets[bulletCount] == nullptr)
 		{
-			bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,2 });
-			
+			bullets[bulletCount] = new SpiralBullets(GetLocation(), T_Location{ 2,2 }, angle);
+			angle += 3;
 		}
 	}
 	waitShotTimer++;
@@ -54,7 +55,7 @@ void Enemy::Draw()
 {
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
 
-	for (int bulletCount = 0; bulletCount < 30; bulletCount++)
+	for (int bulletCount = 0; bulletCount < 40; bulletCount++)
 	{
 		if (bullets[bulletCount] == nullptr)
 		{

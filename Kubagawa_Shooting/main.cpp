@@ -7,8 +7,8 @@
  ***********************************************/
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow) {
-	SetWindowSize(WINDOW_WHITH, WINDOW_HEIGHT);
-	SetGraphMode(WINDOW_WHITH, WINDOW_HEIGHT, 16);
+	SetWindowSize(WHITH, HEIGHT);
+	SetGraphMode(WHITH, HEIGHT, 16);
 
 	// タイトルを test に変更
 	SetMainWindowText("シューティングゲーム");

@@ -2,6 +2,7 @@
 #include "CharaBase.h"
 #include"StraightBullets.h"
 #include"SpiralBullets.h"
+
 class Enemy :
     public CharaBase
 {
@@ -9,6 +10,7 @@ private:
     int hp;
     int point;
 
+    float angle;
 public:
     Enemy(T_Location location);
 

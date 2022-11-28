@@ -4,8 +4,8 @@
 #include"Enemy.h"
 #include"ItemBase.h"
 #include"Recovery.h"
-#define WINDOW_HEIGHT 720
-#define WINDOW_WHITH 1280
+#define HEIGHT 720
+#define WHITH 1280
 
 class GameMainScene :public AbstractScene
 {
