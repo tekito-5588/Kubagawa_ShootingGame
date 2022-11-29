@@ -24,7 +24,7 @@ void Enemy::Update()
 	/*SetLocation(newLocation);*/
 
 	int bulletCount;
-	for (bulletCount = 0; bulletCount < 30; bulletCount++)
+	for (bulletCount = 0; bulletCount < 40; bulletCount++)
 	{
 		if (bullets[bulletCount] == nullptr)
 		{
@@ -43,7 +43,7 @@ void Enemy::Update()
 	if (waitShotTimer == 10)
 	{
 		waitShotTimer = 0;
-		if (bulletCount < 30 && bullets[bulletCount] == nullptr)
+		if (bulletCount < 40 && bullets[bulletCount] == nullptr)
 		{
 			bullets[bulletCount] = new SpiralBullets(GetLocation(), T_Location{ 2,2 }, angle);
 			angle += 3;

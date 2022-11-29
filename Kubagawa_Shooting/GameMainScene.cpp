@@ -10,7 +10,7 @@ GameMainScene::GameMainScene()
 	{
 		enemy[i] = nullptr;
 	}
-	enemy[0] = new Enemy(T_Location{ 200,20 });
+	enemy[0] = new Enemy(T_Location{ 600,20 });
 
 	items=new ItemBase*[10];
 	for (int i = 0; i < 10; i++)
