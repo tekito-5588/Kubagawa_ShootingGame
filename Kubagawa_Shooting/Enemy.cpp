@@ -5,10 +5,10 @@
 
 Enemy::Enemy(T_Location location):
 	CharaBase(location, 20.f, T_Location{ 0,0.5 })
-    ,hp(10),point(10)
+    ,hp(10),point(10),shotNum(0)
 {
-	bullets = new BulletsBase * [40];
-	for (int i = 0; i < 40; i++)
+	bullets = new BulletsBase * [BULLET];
+	for (int i = 0; i < BULLET; i++)
 	{
 		bullets[i] = nullptr;
 	}
@@ -18,13 +18,12 @@ Enemy::Enemy(T_Location location):
 
 void Enemy::Update()
 {
-	T_Location newLocation = GetLocation();
+	/*T_Location newLocation = GetLocation();
 	newLocation.y += speed.y;
-	SetLocation(newLocation);
-	/*SetLocation(newLocation);*/
+	SetLocation(newLocation);*/
 
 	int bulletCount;
-	for (bulletCount = 0; bulletCount < 40; bulletCount++)
+	for (bulletCount = 0; bulletCount < BULLET; bulletCount++)
 	{
 		if (bullets[bulletCount] == nullptr)
 		{
@@ -43,10 +42,11 @@ void Enemy::Update()
 	if (waitShotTimer == 10)
 	{
 		waitShotTimer = 0;
-		if (bulletCount < 40 && bullets[bulletCount] == nullptr)
+		if (bulletCount < BULLET && bullets[bulletCount] == nullptr)
 		{
-			bullets[bulletCount] = new SpiralBullets(GetLocation(), T_Location{ 2,2 }, angle);
-			angle += 3;
+			bullets[bulletCount] = new SpiralBullets(GetLocation(), 2.f, (10 * shotNum));
+			shotNum++;
+			//angle += 3;
 		}
 	}
 	waitShotTimer++;
@@ -55,7 +55,7 @@ void Enemy::Draw()
 {
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
 
-	for (int bulletCount = 0; bulletCount < 40; bulletCount++)
+	for (int bulletCount = 0; bulletCount < BULLET; bulletCount++)
 	{
 		if (bullets[bulletCount] == nullptr)
 		{
@@ -63,6 +63,8 @@ void Enemy::Draw()
 		}
 		bullets[bulletCount]->Draw();
 	}
+
+	DrawFormatString(0, 400, 0xffffff, "%d", shotNum);
 }
 void Enemy::Hit(int damage)
 {

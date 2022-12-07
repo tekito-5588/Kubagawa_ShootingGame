@@ -3,9 +3,9 @@
 class SpiralBullets :public BulletsBase
 {
 private:
-	float angle;
+	int angle;
 public:
-	SpiralBullets(T_Location location, T_Location speed, float Angle);
+	SpiralBullets(T_Location location, float Speed, int Angle);
 
 public:
 	virtual void Update() override;

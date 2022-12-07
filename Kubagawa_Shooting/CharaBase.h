@@ -1,7 +1,7 @@
 #pragma once
 #include "SphereCollider.h"
 #include"BulletsBase.h"
-
+#define BULLET 990
 class CharaBase : public SphereCollider
 {
 protected:

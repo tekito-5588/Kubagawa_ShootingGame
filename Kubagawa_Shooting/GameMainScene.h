@@ -5,7 +5,7 @@
 #include"ItemBase.h"
 #include"Recovery.h"
 #define HEIGHT 720
-#define WHITH 1280
+#define WIDTH 1280
 
 class GameMainScene :public AbstractScene
 {

@@ -1,12 +1,19 @@
 #include"DxLib.h"
 #include "SpiralBullets.h"
 #include"GameMainScene.h"
+#include"BulletsBase.h"
+#define _USE_MATH_DEFINES
 #include<math.h>
 
-SpiralBullets::SpiralBullets(T_Location location, T_Location speed,float Angle)
-	:BulletsBase(location, 5.f, 1, speed)
+SpiralBullets::SpiralBullets(T_Location location, float Speed,int Angle)
+	:BulletsBase(location, 5.f, 1, T_Location{ 0,0 })
 {
-	angle = Angle;
+	int deg = Angle % 360;
+	double rad = (M_PI / 180) * deg;
+	float x = (abs(deg) == 90 || abs(deg) == 270) ? 0 : cos(rad);
+	float y = sin(rad);
+
+	this->speed = T_Location{ (Speed * x),(Speed * y) };
 }
 
 void SpiralBullets::Update()
@@ -29,6 +36,6 @@ bool SpiralBullets::isScreenOut()
 	{
 		return ret;
 	}
-	ret = (HEIGHT <= (GetLocation().y - GetRadius())) || (WHITH <= (GetLocation().x - GetRadius()));
+	ret = (HEIGHT <= (GetLocation().y - GetRadius())) || (WIDTH <= (GetLocation().x - GetRadius()));
 	return ret;
 }

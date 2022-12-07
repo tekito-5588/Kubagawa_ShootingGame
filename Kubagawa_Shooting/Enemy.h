@@ -9,6 +9,7 @@ class Enemy :
 private:
     int hp;
     int point;
+    int shotNum;
 
     float angle;
 public:

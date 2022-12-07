@@ -7,8 +7,8 @@
 Player::Player(T_Location location) :CharaBase(location, 10.f, T_Location{ 2,2 })
         , score(0),life(10)
 {
-	bullets = new BulletsBase * [30];
-	for (int i = 0; i < 30; i++)
+	bullets = new BulletsBase * [BULLET];
+	for (int i = 0; i < BULLET; i++)
 	{
 		bullets[i] = nullptr;
 	}
@@ -37,7 +37,7 @@ void Player::Update()
 	SetLocation(newLocation);
 
 	int bulletCount;
-	for (bulletCount = 0; bulletCount < 30; bulletCount++)
+	for (bulletCount = 0; bulletCount < BULLET; bulletCount++)
 	{
 		if (bullets[bulletCount] == nullptr)
 		{
@@ -58,7 +58,7 @@ void Player::Update()
 		if(waitShotTimer == 10)
 		{
 			waitShotTimer = 0;
-			if (bulletCount < 30 && bullets[bulletCount] == nullptr)
+			if (bulletCount < BULLET && bullets[bulletCount] == nullptr)
 			{
 				
 				bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,-2 });
@@ -78,7 +78,7 @@ void Player::Draw()
 
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
 
-	for (int bulletCount = 0; bulletCount < 30; bulletCount++)
+	for (int bulletCount = 0; bulletCount < BULLET; bulletCount++)
 	{
 		if (bullets[bulletCount] == nullptr)
 		{

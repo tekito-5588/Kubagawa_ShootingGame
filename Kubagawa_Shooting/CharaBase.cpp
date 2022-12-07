@@ -18,7 +18,7 @@ void CharaBase::DeleteBullet(int bulletNum)
 		bullets[bulletNum] = nullptr;
 
 		//”z—ñ‚ð‘O‚É‹l‚ß‚é
-		for (int i = bulletNum; i < (30 - 1); i++)
+		for (int i = bulletNum; i < (BULLET - 1); i++)
 		{
 			if (bullets[i + 1] == nullptr)
 			{
