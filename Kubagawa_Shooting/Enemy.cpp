@@ -2,9 +2,17 @@
 #include "Enemy.h"
 #include"BulletsBase.h"
 #include<math.h>
+#define _ENEMY_BULLET_ALL_ 100
+T_Location locations[4] =
+{
+	{200,0},
+	{400,300},
+	{800,240},
+	{500,0}
+};
 
 Enemy::Enemy(T_Location location):
-	CharaBase(location, 20.f, T_Location{ 0,0.5 })
+	CharaBase(location, 20.f, T_Location{ 0,0 })
     ,hp(10),point(10),shotNum(0)
 {
 	bullets = new BulletsBase * [BULLET];
@@ -18,9 +26,10 @@ Enemy::Enemy(T_Location location):
 
 void Enemy::Update()
 {
-	/*T_Location newLocation = GetLocation();
+	T_Location newLocation = /*GetLocation()*/locations[0];
 	newLocation.y += speed.y;
-	SetLocation(newLocation);*/
+	newLocation.x += speed.x;
+	SetLocation(newLocation);
 
 	int bulletCount;
 	for (bulletCount = 0; bulletCount < BULLET; bulletCount++)
@@ -39,14 +48,13 @@ void Enemy::Update()
 		}
 	}
 
-	if (waitShotTimer == 10)
+	if (waitShotTimer == 3)
 	{
 		waitShotTimer = 0;
 		if (bulletCount < BULLET && bullets[bulletCount] == nullptr)
 		{
-			bullets[bulletCount] = new SpiralBullets(GetLocation(), 2.f, (10 * shotNum));
-			shotNum++;
-			//angle += 3;
+			bullets[bulletCount] = new SpiralBullets(GetLocation(), 2.f, (15 * shotNum));
+			shotNum+=5;
 		}
 	}
 	waitShotTimer++;
