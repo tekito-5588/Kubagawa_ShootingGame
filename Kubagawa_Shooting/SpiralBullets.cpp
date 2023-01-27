@@ -5,6 +5,8 @@
 #define _USE_MATH_DEFINES
 #include<math.h>
 
+//ƒvƒŒƒCƒ„[‚ğ²‚É‰ñ“]‚·‚é’e
+
 SpiralBullets::SpiralBullets(T_Location location, float Speed,int Angle)
 	:BulletsBase(location, 5.f, 1, T_Location{ 0,0 })
 {
@@ -16,19 +18,21 @@ SpiralBullets::SpiralBullets(T_Location location, float Speed,int Angle)
 	this->speed = T_Location{ (Speed * x),(Speed * y) };
 }
 
+//’e‚Ì“®‚«‚ğŒvZ‚·‚é
 void SpiralBullets::Update()
 {
 	T_Location newLocation = GetLocation();
-	newLocation.y += speed.y * cos(angle);
-	newLocation.x += speed.x * sin(angle) * -1;
+	newLocation.y += speed.y;
+	newLocation.x += speed.x;
 	SetLocation(newLocation);
 }
-
+//’e‚Ì•`‰æ
 void SpiralBullets::Draw()
 {
 	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 170, 220));
 }
 
+//‰æ–ÊŠO‚Éo‚½‚ç’e‚ğÁ‹‚·‚é
 bool SpiralBullets::isScreenOut()
 {
 	bool ret = ((GetLocation().y + GetRadius()) <= 0 || (GetLocation().x + GetRadius()) <= 0);

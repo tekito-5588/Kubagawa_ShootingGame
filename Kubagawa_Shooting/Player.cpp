@@ -53,14 +53,16 @@ void Player::Update()
 		}
 	}
 
+	//左クリックを押したら、プレイヤーの弾が発射される
 	if (KeyManager::OnMousePreased(MOUSE_INPUT_LEFT))
 	{
+		//1/6の秒数で弾が1つずつ発射される。
 		if(waitShotTimer == 10)
 		{
 			waitShotTimer = 0;
 			if (bulletCount < BULLET && bullets[bulletCount] == nullptr)
 			{
-				
+				//弾はまっすぐに飛び、画面の上に行く
 				bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0,-2 });
 			}
 		}
@@ -72,7 +74,9 @@ void Player::Draw()
 #define _DEBUG_MODE_
 	
 #ifdef _DEBUG_MODE_
+	//HP表示
 	DrawFormatString(10, 10, GetColor(255, 255, 255), "life = %d", life);
+	//スコア表示
 	DrawFormatString(30, 30, GetColor(255, 255, 255), "score = %d", score);
 #endif
 
@@ -100,10 +104,12 @@ void Player::Hit(int damage)
 }
 void Player::Hit(ItemBase* item)
 {
+	//アイテム
 	switch (item->GetType())
 	{
 	case E_ITEM_TYPE::Heal:
 	{
+		//回復アイテムに当たったら、HPを2回復する。
 		Recovery* recovery = dynamic_cast<Recovery*>(item);
 		life += recovery->GetVolume();
 		break;
@@ -121,11 +127,13 @@ bool Player::LifeCheck()
 
 int Player::GetScore() 
 {
+	//スコア
 	return score;
 }
 
 void Player::AddScore(int score)
 {
+	//スコアを増やす
 	if (0 <= score) {
 		this->score += score;
 	}

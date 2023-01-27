@@ -11,8 +11,8 @@ public:
     Recovery(T_Location location);
 
 public:
-    virtual void Update() override;
-    virtual void Draw() override;
+    virtual void Update() override;  //XV
+    virtual void Draw() override;  //•`‰æ
     int GetVolume();
 };
 
