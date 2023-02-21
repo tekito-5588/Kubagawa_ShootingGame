@@ -1,46 +1,45 @@
 #include"DxLib.h"
 #include "Enemy.h"
 #include"BulletsBase.h"
+#include"GameClear.h"
 #include<math.h>
 #define _ENEMY_BULLET_ALL_ 100
 
-struct MoveInfomation
+void Enemy::inputCSV()
 {
-	int pettern; // 行動パターン
-	T_Location targetLocation;//目的地
-	int next;//次の配列番号
-	int witeTimeFlame;//待ち時間
-	int attackType;//攻撃種類
-};
+	FILE* fp;  //FILE型構造体
+	errno_t error;  //fopen_sのエラー確認
 
-MoveInfomation moveInfo[5] =
-{
-	{0,640,150,1,0,0},
-	{0,1200.4,150,2,0,2},
-	{1,0,0,3,300,1},
-	{0,80.2,150,4,0,2},
-	{1,0,0,1,300,1},
-};
+	error = fopen_s(&fp, "CSV/Zahyou.csv","r");
+	if (error != 0)
+	{
+		//エラー発生
+		return;
+	}
+	else
+	{
+		//ファイルを開いた
+		char line[100];
+		for (int i = 0; fgets(line, 100, fp) != NULL; i++)
+		/*while (fgets(line, 100, fp) != NULL)*/
+		{
+			sscanf_s(line, "%d,%f,%f,%d,%d,%d",
+				&moveInfo[i].pettern,
+				&moveInfo[i].targetLocation.x,
+				&moveInfo[i].targetLocation.y,
+				&moveInfo[i].next,
+				&moveInfo[i].witeTimeFlame,
+				&moveInfo[i].attackType
+			);
+		}
+		return;
+	}
 
-T_Location locations[3] =
-{
-	{640,150},
-	{1200.4,150},
-	{80.2,150},
-};
-
-int next[3] =
-{
-	1,
-	2,
-	1
-};
-
-int current = 0;
-int waitTime = 0;
+	fclose(fp);  //ファイルを閉じる
+}
 
 Enemy::Enemy(T_Location location):
-	CharaBase(location, 20.f, T_Location{ 2,2 })
+	CharaBase(location, 20.f, T_Location{ 1,1 })
     ,hp(10),point(10),shotNum(0)
 {
 	bullets = new BulletsBase * [BULLET];
@@ -50,6 +49,8 @@ Enemy::Enemy(T_Location location):
 	}
 	waitShotTimer = 0;
 	angle = 0;
+
+	inputCSV();
 }
 
 void Enemy::Update()
@@ -128,22 +129,24 @@ void Enemy::Update()
 		waitShotTimer = 0;*/
 		if (moveInfo[current].attackType != 0) 
 		{
-			if (bulletCount < 30 && bullets[bulletCount] == nullptr)
+			if (bulletCount < 990 && bullets[bulletCount] == nullptr)
 			{
-				if (moveInfo[current].attackType == 1)
-				{
-					//弾を作る処理
-					bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 2});
+				
+					if (moveInfo[current].attackType == 1)
+					{
+						//弾を作る処理
+						bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 2 });
 
-					/*shotNum += 5;*/
-				}
-				else if (moveInfo[current].attackType == 2)
-				{
-					//弾を作る処理
-					shotNum++;
-					bullets[bulletCount] = new SpiralBullets(GetLocation(), 2.f, (20 * shotNum));
-					/*shotNum += 5;*/
-				}
+						/*shotNum += 5;*/
+					}
+					else if (moveInfo[current].attackType == 2)
+					{
+						//弾を作る処理
+						shotNum++;
+						bullets[bulletCount] = new SpiralBullets(GetLocation(), 3.f, (20 * shotNum));
+						/*shotNum += 5;*/
+					}
+				
 			}
 		}
 	//}
@@ -209,7 +212,7 @@ void Enemy::Move()
 				newLocation.x += speed.x;
 				//今の座標<目的地
 				//目的地<次の座標
-				if ((GetLocation().x <= locations[current].x) &&
+				if ((GetLocation().x <= moveInfo[current].targetLocation.x) &&
 					(moveInfo[current].targetLocation.x) <= newLocation.x)
 				{
 					//目的地を超えたときに目的地に直す
@@ -238,7 +241,7 @@ void Enemy::Move()
 				newLocation.y += speed.y;
 				//今の座標<目的地
 				//目的地<次の座標
-				if ((GetLocation().y <= locations[current].y) &&
+				if ((GetLocation().y <= moveInfo[current].targetLocation.y) &&
 					(moveInfo[current].targetLocation.y) <= newLocation.y)
 				{
 					//目的地を超えたときに目的地に直す

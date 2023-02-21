@@ -4,15 +4,21 @@
 #include"Enemy.h"
 #include"ItemBase.h"
 #include"Recovery.h"
+#include"GameClear.h"
+#include"GameOver.h"
 #define HEIGHT 720
 #define WIDTH 1280
 
 class GameMainScene :public AbstractScene
 {
+private:
+	int enemyCount;
+
 public:
 	Player* player;
 	Enemy** enemy;
 	ItemBase** items;
+	
 public:
 	GameMainScene();
 	//デストラクタ
@@ -27,6 +33,7 @@ public:
 	//シーンの変更処理
 	virtual AbstractScene* ChangeScene() override;
 
+	//エネミーの削除
 	void DeleteEnemy(int enemyNum);
 };
 

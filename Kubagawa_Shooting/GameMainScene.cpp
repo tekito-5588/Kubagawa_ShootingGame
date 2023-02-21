@@ -11,20 +11,21 @@ GameMainScene::GameMainScene()
 		enemy[i] = nullptr;
 	}
 	/*enemy[0] = new Enemy(T_Location{ 600,20 });*/
-	enemy[0] = new Enemy(T_Location { /*WIDTH / 2,HEIGHT / 2*/ 0,0});
+	enemy[0] = new Enemy(T_Location { /*WIDTH / 2,HEIGHT / 2*/ 550,0});
 
 	items=new ItemBase*[10];
 	for (int i = 0; i < 10; i++)
 	{
 		items[i] = nullptr;
 	}
+
+	
 }
 //描画以外の更新を実装する
 void GameMainScene::Update()
 {
 	player->Update();
 
-	int enemyCount;
 
 	int playerCount;
 	
@@ -190,7 +191,6 @@ void GameMainScene::Update()
 				//弾を削除します
 				enemy[enemyCount]->DeleteBullet(bulletCount);
 				bulletCount--;
-
 			}
 		}
 	}
@@ -222,6 +222,16 @@ void GameMainScene::Draw() const
 //シーンの変更処理
 AbstractScene* GameMainScene::ChangeScene()
 {
+	int Count;
+
+	if (enemy[enemyCount]->HpCheck())
+	{
+		return new GameClear;
+	}
+	if (player->LifeCheck())
+	{
+		return new GameOver;
+	}
 	return this;
 }
 

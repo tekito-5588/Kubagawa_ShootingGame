@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include"SceneManager.h"
+#include"Title.h"
 #include"GameMainScene.h"
 
 /***********************************************
@@ -24,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	////シーンマネージャオブジェクトの作成
 	//SceneManager sceneMng((AbstractScene*)new Title());
 	//シーンマネージャオブジェクトの作成
-	SceneManager sceneMng(dynamic_cast<AbstractScene*>(new GameMainScene()) );
+	SceneManager sceneMng(dynamic_cast<AbstractScene*>(new Title()) );
 
 	// ゲームループ
 	while (ProcessMessage() == 0) {
@@ -33,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		sceneMng.Update();      //シーンの更新処理
 		sceneMng.Draw();        //シーンの描画処理
-
+		
 		if (sceneMng.ChangeScene() == nullptr)    //シーンの変更処理
 		{
 			DxLib_End();        //

@@ -7,7 +7,7 @@
 
 //ƒvƒŒƒCƒ„[‚ğ²‚É‰ñ“]‚·‚é’e
 
-SpiralBullets::SpiralBullets(T_Location location, float Speed,int Angle)
+SpiralBullets::SpiralBullets(T_Location location, float Speed, int Angle)
 	:BulletsBase(location, 5.f, 1, T_Location{ 0,0 })
 {
 	int deg = Angle % 360;
