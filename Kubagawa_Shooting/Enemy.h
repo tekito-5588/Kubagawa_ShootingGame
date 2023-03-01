@@ -2,6 +2,7 @@
 #include "CharaBase.h"
 #include"StraightBullets.h"
 #include"SpiralBullets.h"
+#include"SpiralBullets2.h"
 
 struct MoveInfomation
 {

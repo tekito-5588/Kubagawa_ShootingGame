@@ -16,7 +16,10 @@ void Recovery::Update()
 
 void Recovery::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 255, 255));
+	int ImageItem = LoadGraph("images/Item.png");
+
+	DrawGraph(GetLocation().x - 10, GetLocation().y - 35, ImageItem, FALSE);
+	//DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 255, 255));
 }
 
 int Recovery::GetVolume()

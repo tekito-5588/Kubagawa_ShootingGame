@@ -20,7 +20,10 @@ void StraightBullets::Update()
 
 void StraightBullets::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(0, 255, 0));
+	int ImageBullet = LoadGraph("images/Bullet.png");
+
+	DrawGraph(GetLocation().x - 10, GetLocation().y - 35, ImageBullet, FALSE);
+	//DrawCircle(GetLocation().x, GetLocation().y -15, GetRadius(), GetColor(0, 255, 0));
 }
 
 //âÊñ äOÇ…èoÇΩÇÁíeÇè¡Ç∑

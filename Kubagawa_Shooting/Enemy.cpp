@@ -29,8 +29,7 @@ void Enemy::inputCSV()
 				&moveInfo[i].targetLocation.y,
 				&moveInfo[i].next,
 				&moveInfo[i].witeTimeFlame,
-				&moveInfo[i].attackType
-			);
+				&moveInfo[i].attackType);
 		}
 		return;
 	}
@@ -40,7 +39,7 @@ void Enemy::inputCSV()
 
 Enemy::Enemy(T_Location location):
 	CharaBase(location, 20.f, T_Location{ 1,1 })
-    ,hp(10),point(10),shotNum(0)
+    ,hp(5),point(10),shotNum(0)
 {
 	bullets = new BulletsBase * [BULLET];
 	for (int i = 0; i < BULLET; i++)
@@ -61,6 +60,13 @@ void Enemy::Update()
 		Move();
 		break;
 	case 1:
+		waitTime++;
+		if (moveInfo[current].witeTimeFlame <= waitTime)
+		{
+			waitTime = 0;
+			current = moveInfo[current].next;
+		}
+	case 2:
 		waitTime++;
 		if (moveInfo[current].witeTimeFlame <= waitTime)
 		{
@@ -124,20 +130,21 @@ void Enemy::Update()
 		}
 	}
 
-	/*if (waitShotTimer == 3)
-	{
-		waitShotTimer = 0;*/
-		if (moveInfo[current].attackType != 0) 
+if (moveInfo[current].attackType != 0) 
 		{
-			if (bulletCount < 990 && bullets[bulletCount] == nullptr)
+			if (bulletCount < 30 && bullets[bulletCount] == nullptr)
 			{
 				
 					if (moveInfo[current].attackType == 1)
 					{
-						//’e‚ðì‚éˆ—
-						bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 2 });
-
+						if (waitShotTimer == 30)
+						{
+							waitShotTimer = 0;
+							//’e‚ðì‚éˆ—
+							bullets[bulletCount] = new StraightBullets(GetLocation(), T_Location{ 0, 2 });
+						}
 						/*shotNum += 5;*/
+						waitShotTimer++;
 					}
 					else if (moveInfo[current].attackType == 2)
 					{
@@ -146,15 +153,24 @@ void Enemy::Update()
 						bullets[bulletCount] = new SpiralBullets(GetLocation(), 3.f, (20 * shotNum));
 						/*shotNum += 5;*/
 					}
-				
+					else if (moveInfo[current].attackType == 3)
+					{
+						//’e‚ðì‚éˆ—
+						shotNum++;
+						bullets[bulletCount] = new SpiralBullets(GetLocation(), 3.f, (20 * -shotNum));
+					}
 			}
 		}
-	//}
-	//waitShotTimer++;
+	
 }
 void Enemy::Draw()
 {
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
+	int ImageEnemy1 = LoadGraph("images/Enemy1.png");
+	/*int ImageEnemy2 = LoadGraph("images/Enemy2.png");
+	int ImageEnemy3 = LoadGraph("images/Enemy3.png");*/
+
+	DrawGraph(GetLocation().x-40, GetLocation().y-40, ImageEnemy1, TRUE);
+	//DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 255));
 
 	for (int bulletCount = 0; bulletCount < BULLET; bulletCount++)
 	{
@@ -178,11 +194,13 @@ void Enemy::Hit(int damage)
 		}
 	}
 }
+
 bool Enemy::HpCheck()
 {
 	bool ret = (hp <= 0);
 	return ret;
 }
+
 int Enemy::GetPoint()
 {
 	return point;

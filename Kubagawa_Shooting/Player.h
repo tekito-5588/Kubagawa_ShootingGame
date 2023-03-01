@@ -8,6 +8,7 @@ class Player :
 private:
     int score;  //“¾“_
     int life;  //Žc‹@
+    int ImagePlayer;
 public:
     Player(T_Location location);
 public:

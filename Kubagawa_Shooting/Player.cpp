@@ -13,6 +13,7 @@ Player::Player(T_Location location) :CharaBase(location, 10.f, T_Location{ 2,2 }
 		bullets[i] = nullptr;
 	}
 	waitShotTimer = 0;
+	//player = ("Images/Player.png");
 }
 
 void Player::Update()
@@ -79,8 +80,10 @@ void Player::Draw()
 	//スコア表示
 	DrawFormatString(30, 30, GetColor(255, 255, 255), "score = %d", score);
 #endif
+	ImagePlayer = LoadGraph("images/Player.png");
 
-	DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
+	DrawGraph(GetLocation().x - 15, GetLocation().y - 15, ImagePlayer, TRUE);
+	//DrawCircle(GetLocation().x, GetLocation().y, GetRadius(), GetColor(255, 0, 0));
 
 	for (int bulletCount = 0; bulletCount < BULLET; bulletCount++)
 	{

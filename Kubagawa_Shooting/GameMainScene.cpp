@@ -1,17 +1,18 @@
+#include"DxLib.h"
 #include "GameMainScene.h"
 
 GameMainScene::GameMainScene()
 {
 	T_Location location = T_Location{ 20,100 };
 	player = new Player(location);
-	
+
 	enemy = new Enemy*[10];
 	for (int i = 0; i < 10; i++)
 	{
-		enemy[i] = nullptr;
+		enemy[i] = new Enemy(T_Location { (float)GetRand(1280),0});
 	}
 	/*enemy[0] = new Enemy(T_Location{ 600,20 });*/
-	enemy[0] = new Enemy(T_Location { /*WIDTH / 2,HEIGHT / 2*/ 550,0});
+	//enemy[0] = new Enemy(T_Location { /*WIDTH / 2,HEIGHT / 2*/ 550,0});
 
 	items=new ItemBase*[10];
 	for (int i = 0; i < 10; i++)
@@ -115,7 +116,7 @@ void GameMainScene::Update()
 		}
 		bullet = enemy[enemyCount]->GetBullets();
 
-		for (int i = 0; i < 990; i++)
+		for (int i = 0; i < 30; i++)
 		{
 			if (bullet[i] == nullptr)
 			{
@@ -176,7 +177,7 @@ void GameMainScene::Update()
 			break;
 		}
 		BulletsBase** bullet = enemy[enemyCount]->GetBullets();
-		for (int bulletCount = 0; bulletCount < 990; bulletCount++)
+		for (int bulletCount = 0; bulletCount < 30; bulletCount++)
 		{
 			if (bullet[bulletCount] == nullptr)
 			{
@@ -222,17 +223,20 @@ void GameMainScene::Draw() const
 //ƒV[ƒ“‚Ì•ÏXˆ—
 AbstractScene* GameMainScene::ChangeScene()
 {
-	int Count;
-
-	if (enemy[enemyCount]->HpCheck())
-	{
-		return new GameClear;
-	}
 	if (player->LifeCheck())
 	{
 		return new GameOver;
 	}
-	return this;
+	for (int i = 0; i < 10; i++)
+	{
+		if (enemy[i] != nullptr)
+		{
+			return this;
+		}
+	}
+	
+	ScreenFlip();
+	return new GameClear;
 }
 
 void GameMainScene::DeleteEnemy(int enemyNum)

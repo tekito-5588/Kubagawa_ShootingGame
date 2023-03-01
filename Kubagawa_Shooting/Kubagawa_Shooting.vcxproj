@@ -170,6 +170,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="SpiralBullets.cpp" />
+    <ClCompile Include="SpiralBullets2.cpp" />
     <ClCompile Include="StraightBullets.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
@@ -190,6 +191,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="SpiralBullets.h" />
+    <ClInclude Include="SpiralBullets2.h" />
     <ClInclude Include="StraightBullets.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
